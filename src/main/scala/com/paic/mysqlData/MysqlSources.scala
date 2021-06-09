@@ -18,12 +18,11 @@ object MysqlSources {
   def main(args: Array[String]): Unit = {
     val env = ExecutionEnvironment.getExecutionEnvironment
 
-    val inputMysql: DataSet[Row] = jdbcRead(env)
-    inputMysql.print()
+    jdbcRead(env)
 
   }
 //利用有返回值的方式，可以用获取到的数据根据业务进一步操作
-  def jdbcRead(env:ExecutionEnvironment)={
+  def jdbcRead(env:ExecutionEnvironment):Unit={
     val inputMysql:DataSet[Row] = env.createInput(
       JDBCInputFormat.buildJDBCInputFormat()
     //指定驱动名称
@@ -36,7 +35,8 @@ object MysqlSources {
         .setRowTypeInfo(new RowTypeInfo(BasicTypeInfo.INT_TYPE_INFO,BasicTypeInfo.STRING_TYPE_INFO,BasicTypeInfo.STRING_TYPE_INFO))
         .finish()
     )
-    inputMysql
+    inputMysql.print()
+//    env.execute()
   }
 }
 

@@ -94,3 +94,6 @@ class MySensorSource extends SourceFunction[SensorReading]{
 
 //定义温度器样例类
 case class SensorReading(sensorName:String,recordTime:String,temperature:Double)
+case class SensorTem(id:String,timestamp:Long,temperature:Double)
+//温度器名称样例类
+case class SensorName(sensorName:String)

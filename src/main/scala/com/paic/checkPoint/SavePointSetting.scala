@@ -16,7 +16,6 @@ object SavePointSetting {
     val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
     env.setParallelism(1)
 
-
   }
 
   def savePointSetting(env:StreamExecutionEnvironment): Unit ={
