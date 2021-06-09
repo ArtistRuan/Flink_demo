@@ -1,4 +1,4 @@
-package com.paic.mysqlData
+package com.paic.relationshipDataBaseData
 
 import org.apache.flink.api.common.typeinfo.BasicTypeInfo
 import org.apache.flink.api.java.io.jdbc.JDBCInputFormat
