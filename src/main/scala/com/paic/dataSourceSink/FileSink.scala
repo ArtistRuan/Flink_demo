@@ -1,4 +1,4 @@
-package com.paic.dataSink
+package com.paic.dataSourceSink
 
 import com.paic.transferFunction.Person
 import org.apache.flink.api.common.serialization.SimpleStringEncoder
