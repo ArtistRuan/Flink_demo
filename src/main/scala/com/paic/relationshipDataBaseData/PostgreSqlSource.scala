@@ -1,10 +1,9 @@
 package com.paic.relationshipDataBaseData
 
 import org.apache.flink.connector.jdbc.catalog.JdbcCatalog
-import org.apache.flink.streaming.api.scala._
-import org.apache.flink.table.api._
-import org.apache.flink.table.api.scala._
-import org.apache.flink.types.Row
+import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
+import org.apache.flink.table.api.EnvironmentSettings
+import org.apache.flink.table.api.scala.StreamTableEnvironment
 
 
 /**
@@ -17,13 +16,14 @@ import org.apache.flink.types.Row
   **/
 object PostgreSqlSource {
   def main(args: Array[String]): Unit = {
-//    val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
-//    env.setParallelism(1)
-
-//    val tableEnv: StreamTableEnvironment = StreamTableEnvironment.create(env)
-
+    val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
+    env.setParallelism(1)
+    //    val tableEnv: StreamTableEnvironment = StreamTableEnvironment.create(env)
+    JdbcPg(env)
+  }
+  def JdbcPg(env:StreamExecutionEnvironment): Unit = {
     val settings = EnvironmentSettings.newInstance().inStreamingMode().build()
-    val tableEnv: TableEnvironment = TableEnvironment.create(settings)
+    val tableEnv: StreamTableEnvironment = StreamTableEnvironment.create(env,settings)
 
     val name            = "mypg"
     val defaultDatabase = "postgres"
@@ -42,10 +42,14 @@ object PostgreSqlSource {
         |select * from `public.company`
       """.stripMargin)
 
-    resultPg.toAppendStream[Row].print()
+    resultPg.printSchema()
 
-//    env.execute()
+//    resultPg.toAppendStream[Row].print()
+
+    env.execute()
   }
+
+
 }
 
 
