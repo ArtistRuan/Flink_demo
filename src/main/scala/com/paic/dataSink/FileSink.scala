@@ -31,9 +31,11 @@ object FileSink {
 
   def dataFromFile(env:StreamExecutionEnvironment){
 
-    val inputPath = "E:\\itLearner\\FlinkEngine\\src\\main\\resources\\source.txt"
-
-    val dataSource: DataStream[String] = env.readTextFile(inputPath)
+//    val inputPath = "E:\\itLearner\\FlinkEngine\\src\\main\\resources\\source.txt"
+    //使用getClass.getSource
+    val sourcePath = getClass.getResource("E:\\itLearner\\FlinkEngine\\src\\main\\resources\\source.txt")
+//    val dataSource: DataStream[String] = env.readTextFile(inputPath)
+    val dataSource: DataStream[String] = env.readTextFile(sourcePath.getPath)
 
     val dataStream = dataSource.map(
       data => {

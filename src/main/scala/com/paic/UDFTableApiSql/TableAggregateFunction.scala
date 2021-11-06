@@ -9,5 +9,8 @@ package com.paic.UDFTableApiSql
   *
   **/
 object TableAggregateFunction {
+  def main(args: Array[String]): Unit = {
+
+  }
 
 }
