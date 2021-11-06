@@ -48,10 +48,10 @@ object LoginLogWithCep {
       .begin[loginInfo]("firstFail").where(_.loginStatus == "fail")
       .next("secondFail").where(_.loginStatus == "fail")
       .within(Time.seconds(2))
-
+    //将定义好的pattern传入CEP，及CEP数据源
     val patternStream = CEP.pattern(inputStream.keyBy(_.userId),pattern)
 
-
+    //定义CEP后的操作类，继承PatternSelectFunction
     val loginFailPattern = patternStream.select(new loginPattern())
 
     loginFailPattern.print()
