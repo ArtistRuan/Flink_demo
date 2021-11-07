@@ -31,7 +31,7 @@ object PostgresqlSink {
     //获取输入数据文件名
     val source_path: URL = getClass.getResource("/source.txt")
     //获取输入数据流
-    val sourceStream = env.readTextFile(source_path.getPath)
+    val sourceStream: DataStream[String] = env.readTextFile(source_path.getPath)
     val inputStream = sourceStream.map(
       data => {
         val data_arr = data.split(" ")

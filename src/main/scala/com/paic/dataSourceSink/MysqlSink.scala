@@ -11,21 +11,7 @@ import org.apache.flink.streaming.api.scala._
 /**
   *
   * @program: FlinkEngine
-  * @description: 将数据sink到mysql，发现bug就是这个代码无法实现upsert模式，目前的数据是会有重复的，即：
-  * 源数据：
-  *               ALEX 90 CN
-  *               ALEX 99 BJ
-  *               MIKE 80 US
-  *               MIKE 77 UK
-  *               JACK 60 CA
-  *               JACK 60 JP
-  * 结果数据：
-  *               ALEX 99
-  *               ALEX 99
-  *               MIKE 77
-  *               MIKE 77
-  *               JACK 60
-  *               JACK 60
+  * @description: 将数据sink到mysql，采用upsert模式
   * @author: ruanshikao
   * @create: 2021-05-26 00:11
   *
@@ -33,7 +19,7 @@ import org.apache.flink.streaming.api.scala._
 object MysqlSink {
   def main(args: Array[String]): Unit = {
     val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
-    env.setParallelism(1)
+    env.setParallelism(4)
     dataSinkMysql(env)
 
 
@@ -51,8 +37,8 @@ object MysqlSink {
     )
 
     //print
-    dataSource.print()
-    dataSource.addSink(new MyJdbdSinkFunc())
+    dataSource.print("数据集")
+    dataSource.addSink(new MyJdbdSinkFunc()).setParallelism(4)
 
     env.execute("Data Sink To Mysql")
 
@@ -66,6 +52,7 @@ class MyJdbdSinkFunc() extends RichSinkFunction[Person]{
   var updateStmt:PreparedStatement = _
 
   override def open(parameters: Configuration): Unit = {
+//    super.open(parameters)
     //定义驱动
     Class.forName("com.mysql.jdbc.Driver")
     conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","123456")
@@ -78,6 +65,7 @@ class MyJdbdSinkFunc() extends RichSinkFunction[Person]{
     //先执行更新操作，查到就更新
     updateStmt.setInt(1,value.score)
     updateStmt.setString(2,value.name)
+//    updateStmt.executeUpdate()
     updateStmt.execute()
     //如果更新没有查到数据，那么就插入
     if(updateStmt.getUpdateCount == 0){
