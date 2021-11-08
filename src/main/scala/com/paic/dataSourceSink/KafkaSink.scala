@@ -1,9 +1,10 @@
 package com.paic.dataSourceSink
 
+import java.net.URL
 import java.util.Properties
 
-import com.paic.transferFunction.Person
 import org.apache.flink.api.common.serialization.SimpleStringSchema
+import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.scala._
 import org.apache.flink.streaming.connectors.kafka.{FlinkKafkaConsumer010, FlinkKafkaProducer010}
 
@@ -12,47 +13,30 @@ import org.apache.flink.streaming.connectors.kafka.{FlinkKafkaConsumer010, Flink
   * @program: FlinkEngine
   * @description: ${description}
   * @author: ruanshikao
-  * @create: 2021-05-24 23:08
+  * @create: 2021-11-09 00:56
   *
   **/
-object KafkaSink {  def main(args: Array[String]): Unit = {
-  val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
-  env.setParallelism(1)
-
-  fromTextSinkKafka(env)
-
-  }
-//从文本到kafka
-  def fromTextSinkKafka(env:StreamExecutionEnvironment): Unit ={
-    val inPath = "E:\\itLearner\\FlinkEngine\\src\\main\\resources\\source.txt"
-    val dataSource: DataStream[String] = env.readTextFile(inPath)
-
-    val streamSource = dataSource.map(
-      data => {
-        val arr = data.split(" ")
-        Person(arr(0),arr(1).toInt,arr(2)).toString
-      }
+object KafkaSink {
+  def main(args: Array[String]): Unit = {
+    //创建流执行环境
+    val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
+    //设置时间语义
+    env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
+    //设置并行度
+    env.setParallelism(4)
+    //从文件获取数据
+    val sourcePath: URL = getClass.getResource("/source.txt")
+    val sourceStream: DataStream[String] = env.readTextFile(sourcePath.getPath)
+    //定义kafka连接信息
+    //sink，因为将数据sink到kafka，所以创建生产者
+    sourceStream.addSink(
+      new FlinkKafkaProducer010[String](
+        "192.168.174.200:9092",
+        "topicSink",
+        new SimpleStringSchema())
     )
-
-    streamSource.addSink(
-      new FlinkKafkaProducer010[String]("192.168.174.200:9092","topicSink",new SimpleStringSchema())
-    )
+    //启动任务
+    env.execute("kafka producer sink")
 
   }
-//从kafka到kafka（数据管道：flink在中间作为处理引擎，数据从一端流向一端）
-  def fromKafkaSinkKafka(env: StreamExecutionEnvironment): Unit ={
-
-    val properties = new Properties()
-    properties.setProperty("bootstrap.server","192.168.174.200:9092")
-    properties.setProperty("group.id","consumer-group")
-
-    //从kafka获取数据
-    val kafkaStream: DataStream[String] = env.addSource(new FlinkKafkaConsumer010[String]("sensor",new SimpleStringSchema(),properties))
-
-    //可以加入对数据的处理转换
-
-    //将处理过的数据sink到kafka
-    kafkaStream.addSink(new FlinkKafkaProducer010[String]("192.168.174.200:9092","kafkaSink",new SimpleStringSchema()))
-  }
-
 }

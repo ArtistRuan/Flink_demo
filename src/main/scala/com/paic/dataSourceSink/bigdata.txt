@@ -1,0 +1,10 @@
+
+# zookeeper启动
+xcall /opt/zookeeper-3.4.10/bin/zkServer.sh start
+# zookeeper关闭
+xcall /opt/zookeeper-3.4.10/bin/zkServer.sh stop
+
+# 开启kafka
+xcall /opt/kafka_2.11-0.11.0.0/bin/kafka-server-start.sh -daemon /opt/kafka_2.11-0.11.0.0/config/server.properties
+# 关闭kafka
+xcall /opt/kafka_2.11-0.11.0.0/bin/kafka-server-stop.sh
