@@ -5,10 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="baf7f9e7-2a9c-4555-a252-9e29ae1dc8f7" name="Default Changelist" comment="sink2">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/UserBehavior.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/com/paic/analysizData/passedHoursAnalysis/HotItems.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/com/paic/analysizData/passedHoursAnalysis/HotItems.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/com/paic/analysizData/passedHoursAnalysis/HotItems.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/CountAgg.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/ItemCountWindowResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/ItemViewCount$.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/ItemViewCount.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis$$anon$3$$anon$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis$$anon$3$$anonfun$createSerializer$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis$$anon$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis$$anon$4$$anon$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis$$anon$4$$anonfun$createSerializer$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis$$anon$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis$$anonfun$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis$$anonfun$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis$$anonfun$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis$$anonfun$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis$$anonfun$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis$.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/TopNHotItems$$anonfun$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/TopNHotItems$$anonfun$onTimer$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/TopNHotItems$$anonfun$onTimer$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/TopNHotItems.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/UserBehavior$.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/paic/analysizData/passedHoursAnalysis/UserBehavior.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -64,7 +86,7 @@
           <entry key="csv" value="4" />
           <entry key="ft" value="20" />
           <entry key="java" value="76" />
-          <entry key="scala" value="41472" />
+          <entry key="scala" value="41543" />
           <entry key="txt" value="239" />
           <entry key="xml" value="1170" />
         </counts>
@@ -73,7 +95,7 @@
         <counts>
           <entry key="JAVA" value="76" />
           <entry key="PLAIN_TEXT" value="243" />
-          <entry key="Scala" value="41472" />
+          <entry key="Scala" value="41543" />
           <entry key="VTL" value="20" />
           <entry key="XML" value="1170" />
         </counts>
@@ -107,23 +129,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/com/paic/analysizData/passedHoursAnalysis/HotItems.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1458">
-              <caret line="29" lean-forward="true" selection-end-line="143" />
+            <state relative-caret-position="119">
+              <caret line="32" column="67" selection-start-line="32" selection-start-column="67" selection-end-line="32" selection-end-column="67" />
+              <folding>
+                <element signature="e#50#69#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="114" column="40" selection-start-line="114" selection-start-column="40" selection-end-line="114" selection-end-column="40" />
-              <folding>
-                <element signature="e#51#76#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="105">
+              <caret line="44" column="13" lean-forward="true" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -157,6 +179,7 @@
       <find>postgresql</find>
       <find>mysql</find>
       <find>jdbc</find>
+      <find>UserBehavior</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -376,7 +399,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1636653492095" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1636654057112" />
     <property name="last_opened_file_path" value="F:/Idea/javaJDK8" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -406,7 +429,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.PassedOneHoursAnalysis">
+  <component name="RunManager" selected="Application.HotItems">
     <configuration name="FileSink" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="com.paic.dataSourceSink.FileSink" />
       <module name="FlinkEngine" />
@@ -481,8 +504,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.PassedOneHoursAnalysis" />
         <item itemvalue="Application.HotItems" />
+        <item itemvalue="Application.PassedOneHoursAnalysis" />
         <item itemvalue="Application.KafkaSource" />
         <item itemvalue="Application.KafkaSink" />
         <item itemvalue="Application.FileSink" />
@@ -541,7 +564,7 @@
       <workItem from="1636383596678" duration="437000" />
       <workItem from="1636386007235" duration="6828000" />
       <workItem from="1636642250751" duration="7259000" />
-      <workItem from="1636651066718" duration="2186000" />
+      <workItem from="1636651066718" duration="2944000" />
     </task>
     <task id="LOCAL-00001" summary="CEP info">
       <created>1636192785087</created>
@@ -589,7 +612,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="300434000" />
+    <option name="totallyTimeSpent" value="301192000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -613,7 +636,7 @@
       <window_info content_ui="combo" id="Project" order="5" weight="0.2730711" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32993197" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49848714" weight="0.3407155" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49848714" visible="true" weight="0.3407155" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39863715" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1007,19 +1030,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/paic/analysizData/passedHoursAnalysis/HotItems.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1458">
-          <caret line="29" lean-forward="true" selection-end-line="143" />
+        <state relative-caret-position="105">
+          <caret line="44" column="13" lean-forward="true" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/paic/analysizData/passedHoursAnalysis/PassedOneHoursAnalysis.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/com/paic/analysizData/passedHoursAnalysis/HotItems.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="114" column="40" selection-start-line="114" selection-start-column="40" selection-end-line="114" selection-end-column="40" />
+        <state relative-caret-position="119">
+          <caret line="32" column="67" selection-start-line="32" selection-start-column="67" selection-end-line="32" selection-end-column="67" />
           <folding>
-            <element signature="e#51#76#0" expanded="true" />
+            <element signature="e#50#69#0" expanded="true" />
           </folding>
         </state>
       </provider>

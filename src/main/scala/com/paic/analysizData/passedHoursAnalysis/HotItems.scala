@@ -1,4 +1,5 @@
 package com.paic.analysizData.passedHoursAnalysis
+import java.net.URL
 import java.sql.Timestamp
 
 import org.apache.flink.api.common.functions.AggregateFunction
@@ -29,7 +30,8 @@ object HotItems {
     env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
 
     //2.读取数据
-    val dataStream = env.readTextFile("E:\\itLearner\\FlinkEngine\\src\\main\\resources\\UserBehavior.csv")
+    val sourcePath: URL = getClass.getResource("/UserBehavior.csv")
+    val dataStream = env.readTextFile(sourcePath.getPath)
       .map(data=>{
         val dataArray = data.split(",")
         UserBehavior(
