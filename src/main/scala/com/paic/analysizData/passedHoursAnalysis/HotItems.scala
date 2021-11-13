@@ -120,7 +120,8 @@ class TopNHotItems(topsize:Int) extends KeyedProcessFunction[Long,ItemViewCount,
       allItems += item
     }
     //按照Count大小排序  并取前N个   sortBy是升序
-    val sortedItems = allItems.sortBy(_.count)(Ordering.Long.reverse).take(topsize)
+//    val sortedItems = allItems.sortBy(_.count)(Ordering.Long.reverse).take(topsize)
+    val sortedItems: ListBuffer[ItemViewCount] = allItems.sortBy(_.count)(Ordering.Long.reverse).take(topsize)
 
     //清空状态   如果不想要下面的格式可以out.collect(sortedItems.toString())输出
     //UserBehavior(960222,4545844,2892802,pv,1511679926)
