@@ -69,8 +69,7 @@
 //        * ItemViewCount 进行输出。
 //        */
 //        .aggregate(new CountAgg(),new ItemCountWindowResult())
-//        .keyBy(_.windowEnd)
-//        .process(new TopNHotItems(3))
+//
 //
 //    processStream.print()
 //
