@@ -98,8 +98,11 @@ class TopNHotItems(topsize:Int) extends KeyedProcessFunction[Long,ItemViewCount,
   private var itemState:ListState[ItemViewCount] = _
 
   override def open(parameters: Configuration): Unit = {
-    itemState = getRuntimeContext.getListState(new ListStateDescriptor[ItemViewCount]("item-state",
-      classOf[ItemViewCount]))
+    val itemState: ListState[ItemViewCount] = getRuntimeContext.getListState(
+      new ListStateDescriptor[ItemViewCount](
+      "item-state",
+      classOf[ItemViewCount]
+    ))
   }
   //每来一条数据如何处理
   override def processElement(i: ItemViewCount, context: KeyedProcessFunction

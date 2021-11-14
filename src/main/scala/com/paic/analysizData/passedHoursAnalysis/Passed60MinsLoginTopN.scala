@@ -1,8 +1,8 @@
 package com.paic.analysizData.passedHoursAnalysis
 
-import java.lang
 import java.net.URL
 
+import java.sql.Timestamp
 import org.apache.flink.api.common.functions.AggregateFunction
 import org.apache.flink.api.common.state.{ListState, ListStateDescriptor}
 import org.apache.flink.configuration.Configuration
@@ -87,10 +87,26 @@ class Passed60MinsLoginTopNWindowResult() extends WindowFunction[Long,Passed60Mi
 class Passed60MinsLoginProcessFunction(topN:Int) extends KeyedProcessFunction[Long,Passed60MinsLoginTopNOut,String]{
   //定义ListState
   private var loginTopNState:ListState[Passed60MinsLoginTopNOut] = _
-  override def processElement(i: Passed60MinsLoginTopNOut, context: KeyedProcessFunction[Long, Passed60MinsLoginTopNOut, String]
-    #Context, collector: Collector[String]): Unit = {
+
+
+  override def processElement(i: Passed60MinsLoginTopNOut, context: KeyedProcessFunction
+    [Long, Passed60MinsLoginTopNOut, String]#Context, collector: Collector[String]): Unit = {
     loginTopNState.add(i)
     context.timerService().registerEventTimeTimer(i.timestamp + 1)
+  }
+
+  override def open(parameters: Configuration): Unit = {
+    try{
+      loginTopNState = getRuntimeContext.getListState(
+        new ListStateDescriptor[Passed60MinsLoginTopNOut](
+          "Passed60MinsLoginTopNOut",
+          classOf[Passed60MinsLoginTopNOut]
+        ))
+    }catch {
+      case e : Exception =>{
+        print("open异常",e)
+      }
+    }
   }
 
   override def onTimer(timestamp: Long, ctx: KeyedProcessFunction[Long, Passed60MinsLoginTopNOut, String]
@@ -98,20 +114,34 @@ class Passed60MinsLoginProcessFunction(topN:Int) extends KeyedProcessFunction[Lo
     //将loginTopNState存入ListBuffer里面
     var allListBuffer:ListBuffer[Passed60MinsLoginTopNOut] = new ListBuffer()
     import scala.collection.JavaConversions._  //这句是将scala的ListState转为Java的集合
-    for (item <- loginTopNState.get()){
-      allListBuffer += item
+    try{
+      for (item <- loginTopNState.get()){
+        allListBuffer += item
+      }
+      val sortListBuffer: ListBuffer[Passed60MinsLoginTopNOut] = allListBuffer.sortBy(_.loginCount)(Ordering.Long.reverse).take(topN)
+      loginTopNState.clear()
+      out.collect(sortListBuffer.toString())
+
+      //将排名结果格式化输出
+      val resultStringBuilder = new StringBuilder()
+      resultStringBuilder.append("时间").append(new Timestamp(timestamp-1)).append("\n")
+      //输出每个数据信息
+      for (i <- sortListBuffer.indices){
+        val currentItem = sortListBuffer(i)
+        resultStringBuilder.append("No").append(i+1).append(":")
+          .append("页面ip=").append(currentItem.loginIp)
+          .append("访问数:").append(currentItem.loginCount)
+          .append("\n")
+      }
+      resultStringBuilder.append("=========================")
+      Thread.sleep(1000)
+      out.collect(resultStringBuilder.toString())
+    }catch {
+      case e:Exception => {
+        print("onTimer异常",e)
+      }
     }
-    val sortListBuffer: ListBuffer[Passed60MinsLoginTopNOut] = allListBuffer.sortBy(_.loginCount)(Ordering.Long.reverse).take(topN)
-    loginTopNState.clear()
-    out.collect(sortListBuffer.toString())
-//    Thread.sleep(1000)
   }
 
-  override def open(parameters: Configuration): Unit = {
-    val loginTopNState: ListState[Passed60MinsLoginTopNOut] = getRuntimeContext.getListState(
-      new ListStateDescriptor[Passed60MinsLoginTopNOut](
-        "Passed60MinsLoginTopNOut",
-        classOf[Passed60MinsLoginTopNOut]
-      ))
-  }
+
 }
