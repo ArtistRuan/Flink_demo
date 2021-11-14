@@ -30,6 +30,7 @@ object Passed60MinsLoginTopN {
     //流执行环境
     val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
     //设置并行度
+//    env.setParallelism(1)
     env.setParallelism(4)
     //设置时间语义
     env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
