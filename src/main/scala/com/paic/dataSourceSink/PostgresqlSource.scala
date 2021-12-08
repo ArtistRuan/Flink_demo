@@ -1,5 +1,9 @@
 package com.paic.dataSourceSink
 
+/**
+  * 这份pg的代码可以用于从pg库中读取数据
+  */
+
 import java.sql.{Connection, DriverManager, PreparedStatement}
 
 import org.apache.flink.configuration.Configuration

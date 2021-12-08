@@ -1,5 +1,9 @@
 package com.paic.dataSourceSink
 
+/**
+  * 这份代码可以用于将数据下沉到mysql
+  */
+
 import java.net.URL
 import java.sql.{Connection, DriverManager, PreparedStatement}
 

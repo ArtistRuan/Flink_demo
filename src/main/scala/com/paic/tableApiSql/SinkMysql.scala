@@ -33,6 +33,8 @@ object SinkMysql {
     //封装
     val source: DataStream[SensorName] = textSource.map(SensorName(_))
 
+    source.print()
+
     //创建表执行环境
     val tableEnv: StreamTableEnvironment = StreamTableEnvironment.create(env)
 //    val table: Table = tableEnv.fromDataStream(source) //直接整个表，下面为指定字段名
@@ -41,9 +43,10 @@ object SinkMysql {
     //etl
     val sql = "select sensorName,count(sensorName) as cnt from sourceTable group by sensorName "
     val sourceTable: Table = tableEnv.sqlQuery(sql)
-    //查看执行计划
-    val explain: String = tableEnv.explain(sourceTable)
-    println(explain)
+
+//    //查看执行计划
+//    val explain: String = tableEnv.explain(sourceTable)
+//    println(explain)
     //定义输出mysql数据
     val sinkDDL =
       """

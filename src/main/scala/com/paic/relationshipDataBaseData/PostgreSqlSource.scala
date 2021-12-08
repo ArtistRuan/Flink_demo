@@ -29,7 +29,7 @@ object PostgreSqlSource {
     val defaultDatabase = "postgres"
     val username        = "postgres"
     val password        = "Paic1234"
-    val baseUrl         = "jdbc:postgresql://localhost:5432/"
+    val baseUrl         = "jdbc:postgresql://localhost:5432/postgres"
 
     val catalog: JdbcCatalog = new JdbcCatalog(name, defaultDatabase, username, password, baseUrl)
     tableEnv.registerCatalog("mypg", catalog)
