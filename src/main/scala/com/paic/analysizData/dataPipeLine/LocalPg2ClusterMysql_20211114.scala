@@ -1,8 +1,9 @@
 package com.paic.analysizData.dataPipeLine
 
 import java.sql.{Connection, DriverManager, PreparedStatement}
+import java.text.SimpleDateFormat
+import java.util.Date
 
-import com.paic.dataSourceSink.PgSource
 import org.apache.flink.api.common.restartstrategy.RestartStrategies
 import org.apache.flink.configuration.Configuration
 import org.apache.flink.streaming.api.functions.source.{RichSourceFunction, SourceFunction}
@@ -30,19 +31,33 @@ object LocalPg2ClusterMysql_20211114 {
     env.setParallelism(4)
     //设置重启
     env.setRestartStrategy(RestartStrategies.fixedDelayRestart(3,60000L))
+    var sourcesql = "select * from almart_all limit 10"
+    val startTimestamp = System.currentTimeMillis()
+    val stateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(startTimestamp))
+    println("开始时间戳",startTimestamp)
+    println("开始时间",stateTime)
 
-    billionPg2MysqlBySQL(env)
+    billionPg2MysqlBySQL(env,sourcesql)
     env.execute("billionPg2MysqlBySQL")
+
+    Thread.sleep(2000)
+    val endTimestamp = System.currentTimeMillis()
+    val endTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(endTimestamp))
+    println("完毕时间戳：",endTimestamp)
+    println("完毕时间",endTime)
+    println("执行耗时(单位：s)：",(endTimestamp - startTimestamp) / 1000 )
   }
 
   /**
     * 对于数据库操作，flink-sql与API
     * @param env
     */
-  def billionPg2MysqlBySQL(env:StreamExecutionEnvironment): Unit ={
-    val sourceStream: DataStream[LocalPgPostgresAlmartAll] = env.addSource(new LocalPgAddSource())
+  def billionPg2MysqlBySQL(env:StreamExecutionEnvironment,sourcesql:String): Unit ={
+    val sourceStream: DataStream[LocalPgPostgresAlmartAll] = env.addSource(new LocalPgAddSource(sourcesql))
 
     sourceStream.print()
+
+    return sourceStream
 
 //    env.execute()
 
@@ -57,16 +72,16 @@ object LocalPg2ClusterMysql_20211114 {
   }
 }
 
-class LocalPgAddSource() extends RichSourceFunction[LocalPgPostgresAlmartAll]{
+class LocalPgAddSource(sourcesql:String) extends RichSourceFunction[LocalPgPostgresAlmartAll]{
   //定义驱动
   var conn:Connection = _
   var pstmt:PreparedStatement = _
   var running = true
-  var sql = "select * from almart_all limit 10"
+//  var sourcesql = "select count(1) from almart_all limit 10"  //放到方法参数中
   override def open(parameters: Configuration): Unit = {
     //设置数据库连接
     conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","Paic1234")
-    pstmt = conn.prepareStatement(sql)
+    pstmt = conn.prepareStatement(sourcesql)
   }
 
   override def close(): Unit = {
