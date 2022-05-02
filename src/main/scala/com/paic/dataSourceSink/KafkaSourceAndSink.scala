@@ -33,6 +33,8 @@ object KafkaSourceAndSink {  def main(args: Array[String]): Unit = {
 
   fromTextSinkKafka(env)
 
+  env.execute()
+
   }
 //从文本到kafka
   def fromTextSinkKafka(env:StreamExecutionEnvironment): Unit ={
