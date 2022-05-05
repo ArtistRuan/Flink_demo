@@ -65,7 +65,7 @@ object web_login_from_text_to_mysql {
         |  city_id varchar(50),
         |  user_id varchar(50),
         |  action_name varchar(50),
-        |  action_time varchar(50)
+        |  action_time bigint
         |) with (
         | 'connector.type' = 'jdbc',
         | 'connector.url' = 'jdbc:mysql://localhost:3306/flink',
