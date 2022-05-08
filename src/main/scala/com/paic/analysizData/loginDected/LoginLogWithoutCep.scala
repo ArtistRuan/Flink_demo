@@ -21,7 +21,7 @@ import scala.collection.mutable.ListBuffer
 //输入样例类
 //case class loginInfo(user_id:Long, ip:String, eventType:String, timestamp:Long)
 //输出样例类
-case class loginFailWarning(userId:Long, lastFailTime:Long, thisFailTime:Long, msg:String)
+case class loginFailWarningCC(userId:Long, lastFailTime:Long, thisFailTime:Long, msg:String)
 
 object LoginLogWithoutCep {
   def main(args: Array[String]): Unit = {
@@ -51,12 +51,12 @@ object LoginLogWithoutCep {
 }
 
 
-class LoginFailWarningResult(failTime:Int) extends KeyedProcessFunction[Long,loginInfo,loginFailWarning]{
+class LoginFailWarningResult(failTime:Int) extends KeyedProcessFunction[Long,loginInfo,loginFailWarningCC]{
   //定义状态，保存当前所有的登录失败时间，保存定时器的时间戳
   lazy val loginFailListState: ListState[loginInfo] = getRuntimeContext.getListState(new ListStateDescriptor[loginInfo]("loginFail-list",classOf[loginInfo]))
   lazy val timerTsState: ValueState[Long] = getRuntimeContext.getState(new ValueStateDescriptor[Long]("timer-ts",classOf[Long]))
 
-  override def processElement(value: loginInfo, context: KeyedProcessFunction[Long, loginInfo, loginFailWarning]#Context, collector: Collector[loginFailWarning]): Unit = {
+  override def processElement(value: loginInfo, context: KeyedProcessFunction[Long, loginInfo, loginFailWarningCC]#Context, collector: Collector[loginFailWarningCC]): Unit = {
     if(value.loginStatus == "fail"){
       loginFailListState.add(value)
       if(timerTsState.value() == 0){
@@ -74,7 +74,7 @@ class LoginFailWarningResult(failTime:Int) extends KeyedProcessFunction[Long,log
   }
 
 
-  override def onTimer(timestamp: Long, ctx: KeyedProcessFunction[Long, loginInfo, loginFailWarning]#OnTimerContext, out: Collector[loginFailWarning]): Unit = {
+  override def onTimer(timestamp: Long, ctx: KeyedProcessFunction[Long, loginInfo, loginFailWarningCC]#OnTimerContext, out: Collector[loginFailWarningCC]): Unit = {
     val allLoginFailList: ListBuffer[loginInfo] = new ListBuffer[loginInfo]()
     val iter = loginFailListState.get().iterator()
     while (iter.hasNext){
@@ -82,7 +82,7 @@ class LoginFailWarningResult(failTime:Int) extends KeyedProcessFunction[Long,log
     }
     //判断登录告警时间的个数，超过上限，输出告警
     if(allLoginFailList.length >= failTime){
-      out.collect(loginFailWarning(
+      out.collect(loginFailWarningCC(
         allLoginFailList.head.userId,
         allLoginFailList.head.timestamp,
         allLoginFailList.last.timestamp,
