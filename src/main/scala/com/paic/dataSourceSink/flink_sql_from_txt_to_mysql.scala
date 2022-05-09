@@ -52,26 +52,26 @@ object flink_sql_from_txt_to_mysql {
 //    + "'connector.username' = 'root',\n"
 //    + "'connector.password' = '123456')\n"
 
-//    val sinkDDL = """
-//        |create table webview_via_table_api_sink (
-//        |  web_id varchar(50),
-//        |  city_id varchar(50),
-//        |  user_id varchar(50),
-//        |  action_name varchar(50),
-//        |  action_time Bigint
-//        |) with (
-//        | 'connector.type' = 'jdbc',
-//        | 'connector.url' = 'jdbc:mysql://localhost:3306/flink',
-//        | 'connector.table' = 'webview_via_table_api',
-//        | 'connector.driver' = 'com.mysql.jdbc.Driver',
-//        | 'connector.username' = 'root',
-//        | 'connector.password' = '123456'
-//        |)
-//      """.stripMargin
+    val sinkDDL = """
+        |create table webview_via_table_api_sink (
+        |  web_id varchar(50),
+        |  city_id varchar(50),
+        |  user_id varchar(50),
+        |  action_name varchar(50),
+        |  action_time Bigint
+        |) with (
+        | 'connector.type' = 'jdbc',
+        | 'connector.url' = 'jdbc:mysql://localhost:3306/flink',
+        | 'connector.table' = 'webview_via_table_api',
+        | 'connector.driver' = 'com.mysql.jdbc.Driver',
+        | 'connector.username' = 'root',
+        | 'connector.password' = '123456'
+        |)
+      """.stripMargin
 
 
 
-    val sinkDDL:String = "create table webview_via_table_api_sink (web_id varchar(50),city_id varchar(50),user_id varchar(50),action_name varchar(50),action_time Bigint) with ('connector.type' = 'jdbc','connector.url' = 'jdbc:mysql://localhost:3306/flink','connector.table' = 'webview_via_table_api','connector.driver' = 'com.mysql.jdbc.Driver','connector.username' = 'root','connector.password' = '123456')"
+//    val sinkDDL:String = "create table webview_via_table_api_sink (web_id varchar(50),city_id varchar(50),user_id varchar(50),action_name varchar(50),action_time Bigint) with ('connector.type' = 'jdbc','connector.url' = 'jdbc:mysql://localhost:3306/flink','connector.table' = 'webview_via_table_api','connector.driver' = 'com.mysql.jdbc.Driver','connector.username' = 'root','connector.password' = '123456')"
 
     // 1 执行DDL建表；2 sink
     tableEnv.sqlUpdate(sinkDDL)
